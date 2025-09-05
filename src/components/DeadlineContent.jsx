@@ -62,8 +62,8 @@ const DeadlineContent = ({
       </div>
       <div className='flex w-full h-full absolute left-0 top-0 right-0 bottom-0 items-center justify-start z-0 pl-20'>
         <div className='w-auto h-auto'>
-          <div className='text-2xl'>{headerText}</div>
-          <div className='text-8xl font-sans'>{titleText}</div>
+          <div className='text-2xl opacity-50'>{headerText}</div>
+          <div className='text-8xl'>{titleText}</div>
         </div>
       </div>
       {linesConfig
