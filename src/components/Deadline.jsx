@@ -51,6 +51,12 @@ const Deadline = () => {
 
   const staticLinesConfig = [
     {
+      label: '2 year',
+      percentWhereToPut: 100,
+      durationInDays: 730,
+      hide: true,
+    },
+    {
       label: '1 month',
       percentWhereToPut: 50,
       durationInDays: 30,
