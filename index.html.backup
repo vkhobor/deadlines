@@ -1,0 +1,299 @@
+<!doctype html>
+<html
+  lang="en"
+  data-ws-project="94e0b425-65c8-4d50-8fe9-cea6578d370a"
+  data-ws-last-published="2025-09-05T18:45:15.698Z"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="og:url" content="https://url/" />
+    <title>Home</title>
+    <meta property="og:title" content="Home" />
+    <meta property="og:type" content="website" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="preload"
+      href="/assets/DMSans-VariableFont_opsz_wght_a7Cfs6yyFmZUpGokx4CtR.ttf"
+      as="font"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="w-element c1q101pd c1l222ws">
+    <div
+      <div class="w-element position-absolute c1547hds cxe1rur cl7p1pf c11q4jka cw7aa8g flex-container align-center justify-center c12u4j6b czygt2s ctqqkq7"></div>
+    ></div>
+    <div class="w-element overflow-x-visible overflow-y-visible margin-top-10pct c1shuciw cw4v65s">
+      <div
+        class="w-element c16r29if c1aig62t display-block cvqz6nh c1cfm6bk align-center justify-center position-relative"
+      >
+        <div
+          class="w-element flex-container width-full cqrlkok position-absolute c1547hds cxe1rur cnmzfyt c1hrzodi c29f2gc"
+        >
+          <div class="w-element c10tk02o c1dmo41a c3k9jf2"></div>
+          <div class="w-element c10tk02o c1dmo41a c13y1158 c13yegn5"></div>
+        </div>
+        <div
+          class="w-element c16hb9ls c63wwwf cqrlkok cfbj6u3 c1547hds cxe1rur c1hrzodi cnmzfyt c2f2fde cgvol0k cm4x7o c1udypw4"
+        >
+          <div class="w-element c1wet6y8 c161pjd">
+            <div class="w-element c1kkuwcc c1ygve0k">09.11</div>
+            <div class="w-element c1vfjcqp c1l222ws">ARC v45</div>
+          </div>
+        </div>
+        <div
+          class="w-element c1eq1kz6 c63wwwf cqrlkok cfbj6u3 c1547hds cxe1rur c1hrzodi cnmzfyt cczrmds clkl4k6 csis5l"
+        >
+          <div
+            class="w-element c16hb9ls c2f2fde csmjvdc c161pjd cfbj6u3 cnmzfyt cy1zu9x c12accyu"
+          >
+            <div class="w-element c16w4q2e c1goqyqf cb936x3 c1pxyxxi">
+              2 weeks
+            </div>
+            <div class="w-element cf6n1xx cf6qqmq c2ujhmr"></div>
+          </div>
+          <div
+            class="w-element c16hb9ls c2f2fde csmjvdc c161pjd cfbj6u3 cnmzfyt ccz7ifi c12accyu"
+          >
+            <div class="w-element c16w4q2e c1a2j80h">3 weeks</div>
+            <div class="w-element cf6n1xx cf6qqmq c1g0eysv"></div>
+          </div>
+          <div
+            class="w-element c16hb9ls c2f2fde csmjvdc c161pjd cfbj6u3 cnmzfyt c15hnw89 c12accyu"
+          >
+            <div class="w-element c16w4q2e cfmxr21 cmtttvk">1 month</div>
+            <div class="w-element cf6n1xx cf6qqmq c1tpuil3"></div>
+          </div>
+          <div
+            class="w-element c16hb9ls c2f2fde csmjvdc c161pjd cfbj6u3 cnmzfyt caa2826 c12accyu"
+          >
+            <div class="w-element c16w4q2e c14iccm4 c1a2j80h">1 week</div>
+            <div class="w-element cf6n1xx cf6qqmq c1g0eysv"></div>
+          </div>
+          <div
+            class="w-element c16hb9ls c2f2fde csmjvdc c161pjd cfbj6u3 cnmzfyt cvgahb9 c12accyu"
+          >
+            <div class="w-element c16w4q2e cfmxr21 cmtttvk">1 day</div>
+            <div class="w-element cf6n1xx cf6qqmq c1tpuil3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @font-face {
+        font-family: DM Sans;
+        font-style: normal;
+        font-weight: 100 1000;
+        font-display: swap;
+        src: url(/assets/DMSans-VariableFont_opsz_wght_a7Cfs6yyFmZUpGokx4CtR.ttf)
+          format('truetype');
+      }
+      @layer presets {
+        :root {
+          display: grid;
+          min-height: 100%;
+          font-family: Arial, Roboto, sans-serif;
+          font-size: 16px;
+          line-height: 1.2;
+        }
+      }
+      @media all {
+        .flex-container {
+          display: flex;
+        }
+        .justify-center {
+          justify-content: center;
+        }
+        .align-center {
+          align-items: center;
+        }
+        .position-relative {
+          position: relative;
+        }
+        .position-absolute {
+          position: absolute;
+        }
+        .width-full {
+          width: 100%;
+        }
+        .display-block {
+          display: block;
+        }
+        .overflow-x-visible {
+          overflow-x: visible;
+        }
+        .overflow-y-visible {
+          overflow-y: visible;
+        }
+        .margin-top-10pct {
+          margin-top: 10%;
+        }
+        .c1shuciw {
+          margin-left: 10%;
+        }
+        .cw4v65s {
+          margin-right: 10%;
+        }
+        .c1l222ws {
+          font-family:
+            DM Sans,
+            sans-serif;
+        }
+        .c1547hds {
+          left: 0;
+        }
+        .cxe1rur {
+          top: 0;
+        }
+        .cl7p1pf {
+          background-color: #ebebeb;
+        }
+        .c11q4jka {
+          width: 4rem;
+        }
+        .cw7aa8g {
+          height: 4rem;
+        }
+        .c12u4j6b {
+          padding-left: 0rem;
+        }
+        .czygt2s {
+          margin-left: 1rem;
+        }
+        .ctqqkq7 {
+          margin-top: 1rem;
+        }
+        .c16r29if {
+          height: 20rem;
+        }
+        .c1aig62t {
+          outline-style: none;
+        }
+        .cvqz6nh {
+          flex-wrap: nowrap;
+        }
+        .c1cfm6bk {
+          flex-direction: row;
+        }
+        .c10tk02o {
+          align-self: stretch;
+        }
+        .c1dmo41a {
+          flex-grow: 1;
+        }
+        .c13y1158 {
+          color: #d6d6d6;
+        }
+        .c13yegn5 {
+          background-color: #d6d6d6;
+        }
+        .c3k9jf2 {
+          background-color: #bcb8b8;
+        }
+        .cqrlkok {
+          height: 100%;
+        }
+        .cnmzfyt {
+          bottom: 0;
+        }
+        .c1hrzodi {
+          right: 0;
+        }
+        .c29f2gc {
+          z-index: 1;
+        }
+        .cgvol0k {
+          justify-content: start;
+        }
+        .cm4x7o {
+          z-index: 2;
+        }
+        .c1udypw4 {
+          padding-left: 5rem;
+        }
+        .cczrmds {
+          z-index: 3;
+        }
+        .clkl4k6 {
+          align-items: end;
+        }
+        .csis5l {
+          justify-content: end;
+        }
+        .c1wet6y8 {
+          width: auto;
+        }
+        .c161pjd {
+          height: auto;
+        }
+        .c1vfjcqp {
+          font-size: 96px;
+        }
+        .c1kkuwcc {
+          font-size: 24px;
+        }
+        .c1ygve0k {
+          color: #00000080;
+        }
+        .cy1zu9x {
+          right: 40%;
+        }
+        .c12accyu {
+          flex-direction: column;
+        }
+        .cf6n1xx {
+          width: 2px;
+        }
+        .cf6qqmq {
+          background-color: #000;
+        }
+        .c2ujhmr {
+          height: 90px;
+        }
+        .c16w4q2e {
+          margin-right: 0rem;
+        }
+        .c1goqyqf {
+          font-size: 20px;
+        }
+        .cb936x3 {
+          margin-bottom: 0.5rem;
+        }
+        .c1pxyxxi {
+          align-self: flex-start;
+        }
+        .caa2826 {
+          right: 22%;
+        }
+        .c14iccm4 {
+          font-size: 16px;
+        }
+        .c1a2j80h {
+          margin-bottom: 0.3rem;
+        }
+        .c1g0eysv {
+          height: 30px;
+        }
+        .ccz7ifi {
+          right: 55%;
+        }
+        .c15hnw89 {
+          right: 69%;
+        }
+        .cfmxr21 {
+          font-size: 10px;
+        }
+        .cmtttvk {
+          margin-bottom: 0.1rem;
+        }
+        .c1tpuil3 {
+          height: 10px;
+        }
+        .cvgahb9 {
+          right: 7%;
+        }
+      }
+    </style>
+  </body>
+</html>
