@@ -1,0 +1,83 @@
+import React from 'react'
+import Line from './Line'
+
+const DeadlineContent = ({
+  backgroundSplitPercentage = 80,
+  linesConfig = [
+    {
+      label: '2 weeks',
+      percentWhereToPut: 40,
+      durationInDays: 14,
+      size: 'large',
+    },
+    {
+      label: '3 weeks',
+      percentWhereToPut: 58,
+      durationInDays: 21,
+      size: 'medium',
+    },
+    {
+      label: '1 month',
+      percentWhereToPut: 66,
+      durationInDays: 30,
+      size: 'small',
+    },
+    {
+      label: '1 week',
+      percentWhereToPut: 20,
+      durationInDays: 7,
+      size: 'medium',
+    },
+    {
+      label: '1 day',
+      percentWhereToPut: 8,
+      durationInDays: 1,
+      size: 'small',
+    },
+  ],
+  headerText = '09.11',
+  titleText = 'ARC v45',
+  onDelete,
+}) => {
+  return (
+    <div
+      name='item'
+      className='h-80 outline-none block flex-nowrap flex-row items-center justify-center relative group'
+    >
+      <button
+        className='absolute top-0 left-0 text-black text-lg z-10 leading-0 m-3 -translate-x-1/2 hidden group-hover:block'
+        onClick={onDelete}
+      >
+        ×
+      </button>
+      <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0'>
+        <div
+          className='self-stretch bg-zinc-400'
+          style={{ flex: `${100 - backgroundSplitPercentage}%` }}
+        ></div>
+        <div
+          className='self-stretch text-zinc-300 bg-zinc-300'
+          style={{ flex: `${backgroundSplitPercentage}%` }}
+        ></div>
+      </div>
+      <div className='flex w-full h-full absolute left-0 top-0 right-0 bottom-0 items-center justify-start z-0 pl-20'>
+        <div className='w-auto h-auto'>
+          <div className='text-2xl'>{headerText}</div>
+          <div className='text-8xl font-sans'>{titleText}</div>
+        </div>
+      </div>
+      <div className='block w-full h-full absolute left-0 top-0 right-0 bottom-0 z-0 items-end justify-end'>
+        {linesConfig.map((line, index) => (
+          <Line
+            key={index}
+            label={line.label}
+            percentWhereToPut={line.percentWhereToPut}
+            size={line.size}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default DeadlineContent

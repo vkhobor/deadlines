@@ -1,0 +1,189 @@
+import React, { useState, useEffect } from 'react'
+import Line from './Line'
+import DeadlineContent from './DeadlineContent'
+
+const Deadline = () => {
+  const [deadlines, setDeadlines] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search)
+    const deadlinesFromUrl = queryParams.get('deadlines')
+    if (deadlinesFromUrl) {
+      try {
+        setDeadlines(JSON.parse(deadlinesFromUrl))
+      } catch (error) {
+        console.error('Failed to parse deadlines from URL:', error)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search)
+    queryParams.set('deadlines', JSON.stringify(deadlines))
+    const newUrl = `${window.location.pathname}?${queryParams.toString()}`
+    window.history.replaceState(null, '', newUrl)
+  }, [deadlines])
+
+  const staticLinesConfig = [
+    {
+      label: '2 weeks',
+      percentWhereToPut: 40,
+      durationInDays: 14,
+    },
+    {
+      label: '3 weeks',
+      percentWhereToPut: 58,
+      durationInDays: 21,
+    },
+    {
+      label: '1 month',
+      percentWhereToPut: 66,
+      durationInDays: 30,
+    },
+    {
+      label: '1 week',
+      percentWhereToPut: 20,
+      durationInDays: 7,
+    },
+    {
+      label: '1 day',
+      percentWhereToPut: 8,
+      durationInDays: 1,
+    },
+  ]
+  const [newDeadline, setNewDeadline] = useState({ name: '', date: '' })
+
+  const handleAddDeadline = () => {
+    if (newDeadline.name && newDeadline.date) {
+      setDeadlines([...deadlines, newDeadline])
+      setNewDeadline({ name: '', date: '' })
+      setIsModalOpen(false)
+    }
+  }
+  return (
+    <>
+      <div
+        className='absolute left-0 top-0 bg-gray-200 w-16 h-16 flex items-center justify-center pl-0 ml-4 mt-4  cursor-pointer'
+        onClick={() => setIsModalOpen(true)}
+      >
+        +
+      </div>
+      {isModalOpen && (
+        <div className='fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50'>
+          <div className='bg-white p-4 rounded shadow-md'>
+            <h2 className='text-lg font-bold mb-4'>Add Deadline</h2>
+            <input
+              type='text'
+              placeholder='Name'
+              value={newDeadline.name}
+              onChange={(e) =>
+                setNewDeadline({ ...newDeadline, name: e.target.value })
+              }
+              className='border p-2 mb-2 w-full'
+            />
+            <input
+              type='date'
+              value={newDeadline.date}
+              onChange={(e) =>
+                setNewDeadline({ ...newDeadline, date: e.target.value })
+              }
+              className='border p-2 mb-4 w-full'
+            />
+            <div className='flex justify-end'>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className='bg-gray-300 px-4 py-2 rounded mr-2'
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddDeadline}
+                className='bg-blue-500 text-white px-4 py-2 rounded'
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className='overflow-x-visible overflow-y-visible mt-[10%] ml-[10%] mr-[10%] mb-20 flex flex-col gap-8'>
+        {deadlines.map((deadline, index) => {
+          const currentDate = new Date()
+          const deadlineDate = new Date(deadline.date)
+          const timeDifference = Math.max(
+            0,
+            (deadlineDate - currentDate) / (1000 * 60 * 60 * 24), // Difference in days
+          )
+          const closestLines = staticLinesConfig
+            .sort((a, b) => a.durationInDays - b.durationInDays)
+            .reduce(
+              (acc, curr, idx, arr) => {
+                if (timeDifference >= curr.durationInDays) {
+                  acc[0] = curr
+                } else if (!acc[1] && timeDifference < curr.durationInDays) {
+                  acc[1] = curr
+                }
+                return acc
+              },
+              [null, null],
+            )
+
+          const [lowerLine, upperLine] = closestLines
+          const backgroundSplitPercentage =
+            lowerLine && upperLine
+              ? Math.max(
+                  Math.min(
+                    lowerLine.percentWhereToPut +
+                      ((timeDifference - lowerLine.durationInDays) /
+                        (upperLine.durationInDays - lowerLine.durationInDays)) *
+                        (upperLine.percentWhereToPut -
+                          lowerLine.percentWhereToPut),
+                    upperLine.percentWhereToPut,
+                  ),
+                  lowerLine.percentWhereToPut,
+                )
+              : (lowerLine || upperLine).percentWhereToPut
+
+          const largestIndex = staticLinesConfig.findIndex(
+            (line) => line.durationInDays === lowerLine.durationInDays,
+          )
+
+          const linesConfig = staticLinesConfig.map((line, index) => {
+            if (index === largestIndex) {
+              return { ...line, size: 'large' }
+            }
+
+            const step = Math.abs(index - largestIndex)
+            if (step === 1) {
+              return { ...line, size: 'medium' }
+            } else if (step === 2) {
+              return { ...line, size: 'small' }
+            } else {
+              return { ...line, size: 'small' }
+            }
+          })
+
+          console.log(
+            `Lower Line Day Number: ${lowerLine?.durationInDays}, Upper Line Day Number: ${upperLine?.durationInDays}, Calculated Percentage: ${backgroundSplitPercentage}`,
+          )
+          return (
+            <DeadlineContent
+              key={index}
+              headerText={`${new Date(deadline.date).toLocaleDateString()} ${new Date(deadline.date).toLocaleDateString('en-US', { weekday: 'long' })}`}
+              titleText={deadline.name}
+              backgroundSplitPercentage={backgroundSplitPercentage}
+              linesConfig={linesConfig}
+              onDelete={() => {
+                const updatedDeadlines = deadlines.filter((_, i) => i !== index)
+                setDeadlines(updatedDeadlines)
+              }}
+            />
+          )
+        })}
+      </div>
+    </>
+  )
+}
+
+export default Deadline
