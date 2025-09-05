@@ -9,14 +9,18 @@ const Deadline = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
-    const deadlinesFromUrl = queryParams.get('deadlines')
-    if (deadlinesFromUrl) {
-      try {
-        setDeadlines(JSON.parse(deadlinesFromUrl))
-      } catch (error) {
-        console.error('Failed to parse deadlines from URL:', error)
-      }
+    const deadlinesFromUrl = []
+    let index = 1
+    while (
+      queryParams.has(`deadline-name-${index}`) &&
+      queryParams.has(`deadline-date-${index}`)
+    ) {
+      const name = queryParams.get(`deadline-name-${index}`)
+      const date = queryParams.get(`deadline-date-${index}`)
+      deadlinesFromUrl.push({ name, date })
+      index++
     }
+    setDeadlines(deadlinesFromUrl)
   }, [])
 
   useEffect(() => {
@@ -29,7 +33,18 @@ const Deadline = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
-    queryParams.set('deadlines', JSON.stringify(deadlines))
+    Array.from(queryParams.keys()).forEach((key) => {
+      if (
+        key.startsWith('deadline-name-') ||
+        key.startsWith('deadline-date-')
+      ) {
+        queryParams.delete(key)
+      }
+    })
+    deadlines.forEach((deadline, index) => {
+      queryParams.set(`deadline-name-${index + 1}`, deadline.name)
+      queryParams.set(`deadline-date-${index + 1}`, deadline.date)
+    })
     const newUrl = `${window.location.pathname}?${queryParams.toString()}`
     window.history.replaceState(null, '', newUrl)
   }, [deadlines])
@@ -202,7 +217,7 @@ const Deadline = () => {
           return (
             <DeadlineContent
               key={index}
-              headerText={`${new Date(deadline.date).toLocaleDateString()} ${new Date(deadline.date).toLocaleDateString('en-US', { weekday: 'long' })}`}
+              headerText={`${new Date(deadline.date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }).replace('/', '.')} ${new Date(deadline.date).toLocaleDateString('en-US', { weekday: 'long' })}`}
               titleText={deadline.name}
               backgroundSplitPercentage={backgroundSplitPercentage}
               linesConfig={linesConfig}
