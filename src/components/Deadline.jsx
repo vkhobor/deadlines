@@ -5,6 +5,7 @@ import DeadlineContent from './DeadlineContent'
 const Deadline = () => {
   const [deadlines, setDeadlines] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -19,6 +20,14 @@ const Deadline = () => {
   }, [])
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 60000) // Update every minute
+
+    return () => clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
     queryParams.set('deadlines', JSON.stringify(deadlines))
     const newUrl = `${window.location.pathname}?${queryParams.toString()}`
@@ -27,29 +36,46 @@ const Deadline = () => {
 
   const staticLinesConfig = [
     {
-      label: '2 weeks',
-      percentWhereToPut: 40,
-      durationInDays: 14,
+      label: '1 month',
+      percentWhereToPut: 50,
+      durationInDays: 30,
     },
+
     {
       label: '3 weeks',
-      percentWhereToPut: 58,
+      percentWhereToPut: 40,
+      whenPassesColor: 'green',
       durationInDays: 21,
     },
     {
-      label: '1 month',
-      percentWhereToPut: 66,
-      durationInDays: 30,
+      label: '2 weeks',
+      percentWhereToPut: 30,
+      whenPassesColor: 'lime',
+      durationInDays: 14,
     },
     {
       label: '1 week',
-      percentWhereToPut: 20,
+      percentWhereToPut: 23,
+      whenPassesColor: 'yellow',
       durationInDays: 7,
     },
     {
+      label: '3 days',
+      percentWhereToPut: 15,
+      whenPassesColor: 'red',
+      durationInDays: 3,
+    },
+    {
       label: '1 day',
-      percentWhereToPut: 8,
+      percentWhereToPut: 5,
+      whenPassesColor: 'pink',
       durationInDays: 1,
+    },
+    {
+      label: '0 day',
+      percentWhereToPut: 0,
+      durationInDays: 0,
+      hide: true,
     },
   ]
   const [newDeadline, setNewDeadline] = useState({ name: '', date: '' })
@@ -69,9 +95,15 @@ const Deadline = () => {
       >
         +
       </div>
+      <div className='absolute right-0 top-0 bg-gray-200 text-black p-2 m-4'>
+        {currentTime.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        })}
+      </div>
       {isModalOpen && (
-        <div className='fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50'>
-          <div className='bg-white p-4 rounded shadow-md'>
+        <div className='fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50'>
+          <div className='bg-white p-4 border border-gray-300'>
             <h2 className='text-lg font-bold mb-4'>Add Deadline</h2>
             <input
               type='text'
@@ -93,13 +125,13 @@ const Deadline = () => {
             <div className='flex justify-end'>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className='bg-gray-300 px-4 py-2 rounded mr-2'
+                className='bg-gray-400 px-4 py-2 mr-2'
               >
                 Cancel
               </button>
               <button
                 onClick={handleAddDeadline}
-                className='bg-blue-500 text-white px-4 py-2 rounded'
+                className='bg-blue-600 text-white px-4 py-2'
               >
                 Add
               </button>
@@ -109,7 +141,7 @@ const Deadline = () => {
       )}
       <div className='overflow-x-visible overflow-y-visible mt-[10%] ml-[10%] mr-[10%] mb-20 flex flex-col gap-8'>
         {deadlines.map((deadline, index) => {
-          const currentDate = new Date()
+          const currentDate = currentTime
           const deadlineDate = new Date(deadline.date)
           const timeDifference = Math.max(
             0,
@@ -151,7 +183,7 @@ const Deadline = () => {
 
           const linesConfig = staticLinesConfig.map((line, index) => {
             if (index === largestIndex) {
-              return { ...line, size: 'large' }
+              return { ...line, size: 'large', bold: true }
             }
 
             const step = Math.abs(index - largestIndex)

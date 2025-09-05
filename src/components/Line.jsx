@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Line = ({ label, percentWhereToPut, size }) => {
+const Line = ({ label, percentWhereToPut, size, bold = false }) => {
   const sizeClasses = {
     large: 'text-xl mb-2',
     medium: 'text-base mb-1',
@@ -20,7 +20,9 @@ const Line = ({ label, percentWhereToPut, size }) => {
         right: `${percentWhereToPut}%`,
       }}
     >
-      <div className={`mr-0 ${sizeClasses[size]}`}>{label}</div>
+      <div className={`mr-0 ${sizeClasses[size]} ${bold ? 'font-bold' : ''}`}>
+        {label}
+      </div>
       <div className={`w-0.5 bg-black ${heightClasses[size]}`}></div>
     </div>
   )

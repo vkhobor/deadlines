@@ -42,7 +42,7 @@ const DeadlineContent = ({
   return (
     <div
       name='item'
-      className='h-80 outline-none block flex-nowrap flex-row items-center justify-center relative group'
+      className='h-64 outline-none block flex-nowrap flex-row items-center justify-center relative group'
     >
       <button
         className='absolute top-0 left-0 text-black text-lg z-10 leading-0 m-3 -translate-x-1/2 hidden group-hover:block'
@@ -56,7 +56,7 @@ const DeadlineContent = ({
           style={{ flex: `${100 - backgroundSplitPercentage}%` }}
         ></div>
         <div
-          className='self-stretch text-zinc-300 bg-zinc-300'
+          className={`self-stretch ${linesConfig.some((line) => line.percentWhereToPut > backgroundSplitPercentage && line.whenPassesColor) ? `bg-${linesConfig.find((line) => line.percentWhereToPut > backgroundSplitPercentage && line.whenPassesColor)?.whenPassesColor}-100` : 'bg-gray-300'}`}
           style={{ flex: `${backgroundSplitPercentage}%` }}
         ></div>
       </div>
@@ -66,16 +66,17 @@ const DeadlineContent = ({
           <div className='text-8xl font-sans'>{titleText}</div>
         </div>
       </div>
-      <div className='block w-full h-full absolute left-0 top-0 right-0 bottom-0 z-0 items-end justify-end'>
-        {linesConfig.map((line, index) => (
+      {linesConfig
+        .filter((line) => !line.hide)
+        .map((line, index) => (
           <Line
             key={index}
             label={line.label}
             percentWhereToPut={line.percentWhereToPut}
             size={line.size}
+            bold={line.bold}
           />
         ))}
-      </div>
     </div>
   )
 }

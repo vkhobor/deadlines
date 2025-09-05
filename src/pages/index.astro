@@ -2,15 +2,12 @@
 ---
 import Deadline from '../components/Deadline';
 import "../styles/global.css";
-// Supports weights 100-900
 import '@fontsource-variable/dm-sans';
 ---
 
 <!doctype html>
 <html
   lang="en"
-  data-ws-project="94e0b425-65c8-4d50-8fe9-cea6578d370a"
-  data-ws-last-published="2025-09-05T18:45:15.698Z"
 >
   <head>
     <meta charset="UTF-8" />
@@ -27,7 +24,7 @@ import '@fontsource-variable/dm-sans';
     />
   </head>
   <body class="relative font-dm-sans">
-    <Deadline client:only="react" />
+    <Deadline client:load />
   </body>
 
   <style>
