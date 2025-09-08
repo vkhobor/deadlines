@@ -15,6 +15,30 @@ const DeadlineContent = ({
   titleText = 'ARC v45',
   onDelete,
 }) => {
+  const [splitPercentage, setSplitPercentage] = React.useState(0)
+  const [lines, setLines] = React.useState(
+    linesConfig.map((line) => ({
+      ...line,
+      size: 'small',
+    })),
+  )
+
+  React.useEffect(() => {
+    // Step 2: Trigger animation on mount
+    const timeout = setTimeout(() => {
+      setSplitPercentage(backgroundSplitPercentage)
+    }, 0) // Delay can be adjusted if needed
+    return () => clearTimeout(timeout) // Cleanup timeout
+  }, [backgroundSplitPercentage])
+
+  React.useEffect(() => {
+    // Step 2: Trigger animation on mount
+    const timeout = setTimeout(() => {
+      setLines(linesConfig)
+    }, 0) // Delay can be adjusted if needed
+    return () => clearTimeout(timeout) // Cleanup timeout
+  }, [linesConfig])
+
   const hasColorConfig = linesConfig.some(
     (line) =>
       line.percentWhereToPut > backgroundSplitPercentage &&
@@ -41,12 +65,12 @@ const DeadlineContent = ({
       </button>
       <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0 rounded-xl overflow-clip'>
         <div
-          className={`self-stretch bg-${color}-lighter`}
-          style={{ flex: `${100 - backgroundSplitPercentage}%` }}
+          className={`self-stretch bg-${color}-lighter transition-all duration-1000`}
+          style={{ flex: `${100 - splitPercentage}%` }}
         ></div>
         <div
-          className={`self-stretch bg-${color}-darker`}
-          style={{ flex: `${backgroundSplitPercentage}%` }}
+          className={`self-stretch bg-${color}-darker transition-all duration-1000`}
+          style={{ flex: `${splitPercentage}%` }}
         ></div>
       </div>
       <div className='flex w-full h-full absolute left-0 top-0 right-0 bottom-0 items-center justify-start z-0 pl-20'>
@@ -55,7 +79,7 @@ const DeadlineContent = ({
           <div className='text-8xl'>{titleText}</div>
         </div>
       </div>
-      {linesConfig
+      {lines
         .filter((line) => !line.hide)
         .map((line, index) => (
           <Line

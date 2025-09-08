@@ -15,15 +15,19 @@ const Line = ({ label, percentWhereToPut, size, bold = false }) => {
 
   return (
     <div
-      className='flex items-center justify-center h-auto absolute bottom-0 flex-col translate-x-1/2'
+      className='flex items-center justify-center h-auto absolute bottom-0 flex-col translate-x-1/2 transition-all duration-500'
       style={{
         right: `${percentWhereToPut}%`,
       }}
     >
-      <div className={`mr-0 ${sizeClasses[size]} ${bold ? 'font-bold' : ''}`}>
+      <div
+        className={`transition-all duration-1000 mr-0 ${sizeClasses[size]} ${bold ? 'font-bold' : ''}`}
+      >
         {label}
       </div>
-      <div className={`w-0.5 bg-black ${heightClasses[size]}`}></div>
+      <div
+        className={`w-0.5 bg-black transition-all duration-1000 ${heightClasses[size]}`}
+      ></div>
     </div>
   )
 }
