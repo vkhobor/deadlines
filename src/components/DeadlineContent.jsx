@@ -15,6 +15,19 @@ const DeadlineContent = ({
   titleText = 'ARC v45',
   onDelete,
 }) => {
+  const hasColorConfig = linesConfig.some(
+    (line) =>
+      line.percentWhereToPut > backgroundSplitPercentage &&
+      line.whenPassesColor,
+  )
+  const color = hasColorConfig
+    ? (linesConfig.find(
+        (line) =>
+          line.percentWhereToPut > backgroundSplitPercentage &&
+          line.whenPassesColor,
+      )?.whenPassesColor ?? 'gray')
+    : 'gray'
+
   return (
     <div
       name='item'
@@ -26,13 +39,13 @@ const DeadlineContent = ({
       >
         ×
       </button>
-      <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0 border-s-slate-950 border'>
+      <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0 '>
         <div
-          className='self-stretch bg-transparent '
+          className={`self-stretch bg-${color}-lighter`}
           style={{ flex: `${100 - backgroundSplitPercentage}%` }}
         ></div>
         <div
-          className={`self-stretch ${linesConfig.some((line) => line.percentWhereToPut > backgroundSplitPercentage && line.whenPassesColor) ? `bg-${linesConfig.find((line) => line.percentWhereToPut > backgroundSplitPercentage && line.whenPassesColor)?.whenPassesColor}-100` : 'bg-gray-300'}`}
+          className={`self-stretch bg-${color}-darker`}
           style={{ flex: `${backgroundSplitPercentage}%` }}
         ></div>
       </div>
