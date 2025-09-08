@@ -32,6 +32,7 @@ const Deadline = () => {
   }, [])
 
   useEffect(() => {
+    console.log('runig effect')
     const queryParams = new URLSearchParams(window.location.search)
     Array.from(queryParams.keys()).forEach((key) => {
       if (
