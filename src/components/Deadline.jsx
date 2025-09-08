@@ -133,8 +133,8 @@ const Deadline = () => {
       </div>
       {isModalOpen && (
         <div className='fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50'>
-          <div className='bg-white p-4 border border-gray-300'>
-            <h2 className='text-lg font-bold mb-4'>Add Deadline</h2>
+          <div className='bg-white p-6 border border-gray-300 rounded-sm'>
+            <h2 className='text-lg font-bold mb-5'>Add Deadline</h2>
             <input
               type='text'
               placeholder='Name'
@@ -142,7 +142,7 @@ const Deadline = () => {
               onChange={(e) =>
                 setNewDeadline({ ...newDeadline, name: e.target.value })
               }
-              className='border p-2 mb-2 w-full'
+              className='border p-2 mb-3 w-full rounded-sm'
             />
             <input
               type='date'
@@ -150,18 +150,18 @@ const Deadline = () => {
               onChange={(e) =>
                 setNewDeadline({ ...newDeadline, date: e.target.value })
               }
-              className='border p-2 mb-4 w-full'
+              className='border p-2 mb-5 w-full rounded-sm'
             />
             <div className='flex justify-end'>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className='bg-gray-400 px-4 py-2 mr-2'
+                className='bg-gray-300 text-white px-4 py-2 mr-2 rounded-sm'
               >
                 Cancel
               </button>
               <button
                 onClick={handleAddDeadline}
-                className='bg-blue-600 text-white px-4 py-2'
+                className='bg-blue-500 text-white px-4 py-2 rounded-sm'
               >
                 Add
               </button>
