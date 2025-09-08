@@ -48,7 +48,10 @@ const Deadline = () => {
     const newUrl = `${window.location.pathname}?${queryParams.toString()}`
     window.history.replaceState(null, '', newUrl)
 
-    window.parent.postMessage(window.location.href, '*')
+    window.parent.postMessage(
+      { type: 'url-change', url: window.Location.href },
+      '*',
+    )
   }, [deadlines])
 
   const staticLinesConfig = [
