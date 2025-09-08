@@ -120,7 +120,7 @@ const Deadline = () => {
   return (
     <>
       <div
-        className={`absolute left-0 top-0 hover:border ${deadlines.length === 0 && 'border'} bg-transparent w-16 h-16 flex items-center justify-center pl-0 ml-4 mt-4  cursor-pointer`}
+        className={`absolute left-0 top-0 hover:border ${deadlines && deadlines.length === 0 && 'border'} bg-transparent w-16 h-16 flex items-center justify-center pl-0 ml-4 mt-4  cursor-pointer`}
         onClick={() => setIsModalOpen(true)}
       >
         +
