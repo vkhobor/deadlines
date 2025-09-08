@@ -26,9 +26,9 @@ const DeadlineContent = ({
       >
         ×
       </button>
-      <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0'>
+      <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0 border-s-slate-950 border'>
         <div
-          className='self-stretch bg-zinc-400'
+          className='self-stretch bg-transparent '
           style={{ flex: `${100 - backgroundSplitPercentage}%` }}
         ></div>
         <div
