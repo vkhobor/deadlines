@@ -3,7 +3,7 @@ import Line from './Line'
 import DeadlineContent from './DeadlineContent'
 
 const Deadline = () => {
-  const [deadlines, setDeadlines] = useState([])
+  const [deadlines, setDeadlines] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentTime, setCurrentTime] = useState(new Date())
 
@@ -32,7 +32,10 @@ const Deadline = () => {
   }, [])
 
   useEffect(() => {
-    console.log('runig effect')
+    if (!deadlines) {
+      return
+    }
+
     const queryParams = new URLSearchParams(window.location.search)
     Array.from(queryParams.keys()).forEach((key) => {
       if (
@@ -167,79 +170,83 @@ const Deadline = () => {
         </div>
       )}
       <div className='overflow-x-visible overflow-y-visible mt-[10%] ml-[10%] mr-[10%] mb-20 flex flex-col gap-8'>
-        {deadlines.map((deadline, index) => {
-          const currentDate = currentTime
-          const deadlineDate = new Date(deadline.date)
-          const timeDifference = Math.max(
-            0,
-            (deadlineDate - currentDate) / (1000 * 60 * 60 * 24), // Difference in days
-          )
-          const closestLines = staticLinesConfig
-            .sort((a, b) => a.durationInDays - b.durationInDays)
-            .reduce(
-              (acc, curr, idx, arr) => {
-                if (timeDifference >= curr.durationInDays) {
-                  acc[0] = curr
-                } else if (!acc[1] && timeDifference < curr.durationInDays) {
-                  acc[1] = curr
-                }
-                return acc
-              },
-              [null, null],
+        {deadlines &&
+          deadlines.map((deadline, index) => {
+            const currentDate = currentTime
+            const deadlineDate = new Date(deadline.date)
+            const timeDifference = Math.max(
+              0,
+              (deadlineDate - currentDate) / (1000 * 60 * 60 * 24), // Difference in days
+            )
+            const closestLines = staticLinesConfig
+              .sort((a, b) => a.durationInDays - b.durationInDays)
+              .reduce(
+                (acc, curr, idx, arr) => {
+                  if (timeDifference >= curr.durationInDays) {
+                    acc[0] = curr
+                  } else if (!acc[1] && timeDifference < curr.durationInDays) {
+                    acc[1] = curr
+                  }
+                  return acc
+                },
+                [null, null],
+              )
+
+            const [lowerLine, upperLine] = closestLines
+            const backgroundSplitPercentage =
+              lowerLine && upperLine
+                ? Math.max(
+                    Math.min(
+                      lowerLine.percentWhereToPut +
+                        ((timeDifference - lowerLine.durationInDays) /
+                          (upperLine.durationInDays -
+                            lowerLine.durationInDays)) *
+                          (upperLine.percentWhereToPut -
+                            lowerLine.percentWhereToPut),
+                      upperLine.percentWhereToPut,
+                    ),
+                    lowerLine.percentWhereToPut,
+                  )
+                : (lowerLine || upperLine).percentWhereToPut
+
+            const largestIndex = staticLinesConfig.findIndex(
+              (line) => line.durationInDays === lowerLine.durationInDays,
             )
 
-          const [lowerLine, upperLine] = closestLines
-          const backgroundSplitPercentage =
-            lowerLine && upperLine
-              ? Math.max(
-                  Math.min(
-                    lowerLine.percentWhereToPut +
-                      ((timeDifference - lowerLine.durationInDays) /
-                        (upperLine.durationInDays - lowerLine.durationInDays)) *
-                        (upperLine.percentWhereToPut -
-                          lowerLine.percentWhereToPut),
-                    upperLine.percentWhereToPut,
-                  ),
-                  lowerLine.percentWhereToPut,
-                )
-              : (lowerLine || upperLine).percentWhereToPut
+            const linesConfig = staticLinesConfig.map((line, index) => {
+              if (index === largestIndex) {
+                return { ...line, size: 'large', bold: true }
+              }
 
-          const largestIndex = staticLinesConfig.findIndex(
-            (line) => line.durationInDays === lowerLine.durationInDays,
-          )
+              const step = Math.abs(index - largestIndex)
+              if (step === 1) {
+                return { ...line, size: 'medium' }
+              } else if (step === 2) {
+                return { ...line, size: 'small' }
+              } else {
+                return { ...line, size: 'small' }
+              }
+            })
 
-          const linesConfig = staticLinesConfig.map((line, index) => {
-            if (index === largestIndex) {
-              return { ...line, size: 'large', bold: true }
-            }
-
-            const step = Math.abs(index - largestIndex)
-            if (step === 1) {
-              return { ...line, size: 'medium' }
-            } else if (step === 2) {
-              return { ...line, size: 'small' }
-            } else {
-              return { ...line, size: 'small' }
-            }
-          })
-
-          console.log(
-            `Lower Line Day Number: ${lowerLine?.durationInDays}, Upper Line Day Number: ${upperLine?.durationInDays}, Calculated Percentage: ${backgroundSplitPercentage}`,
-          )
-          return (
-            <DeadlineContent
-              key={index}
-              headerText={`${new Date(deadline.date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }).replace('/', '.')} ${new Date(deadline.date).toLocaleDateString('en-US', { weekday: 'long' })}`}
-              titleText={deadline.name}
-              backgroundSplitPercentage={backgroundSplitPercentage}
-              linesConfig={linesConfig}
-              onDelete={() => {
-                const updatedDeadlines = deadlines.filter((_, i) => i !== index)
-                setDeadlines(updatedDeadlines)
-              }}
-            />
-          )
-        })}
+            console.log(
+              `Lower Line Day Number: ${lowerLine?.durationInDays}, Upper Line Day Number: ${upperLine?.durationInDays}, Calculated Percentage: ${backgroundSplitPercentage}`,
+            )
+            return (
+              <DeadlineContent
+                key={index}
+                headerText={`${new Date(deadline.date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }).replace('/', '.')} ${new Date(deadline.date).toLocaleDateString('en-US', { weekday: 'long' })}`}
+                titleText={deadline.name}
+                backgroundSplitPercentage={backgroundSplitPercentage}
+                linesConfig={linesConfig}
+                onDelete={() => {
+                  const updatedDeadlines = deadlines.filter(
+                    (_, i) => i !== index,
+                  )
+                  setDeadlines(updatedDeadlines)
+                }}
+              />
+            )
+          })}
       </div>
     </>
   )
