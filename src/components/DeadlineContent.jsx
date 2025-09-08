@@ -65,11 +65,11 @@ const DeadlineContent = ({
       </button>
       <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0 rounded-xl overflow-clip'>
         <div
-          className={`self-stretch bg-${color}-lighter transition-all duration-1000`}
+          className={`self-stretch bg-${color}-lighter transition-all duration-800`}
           style={{ flex: `${100 - splitPercentage}%` }}
         ></div>
         <div
-          className={`self-stretch bg-${color}-darker transition-all duration-1000`}
+          className={`self-stretch bg-${color}-darker transition-all duration-800`}
           style={{ flex: `${splitPercentage}%` }}
         ></div>
       </div>

@@ -21,12 +21,12 @@ const Line = ({ label, percentWhereToPut, size, bold = false }) => {
       }}
     >
       <div
-        className={`transition-all duration-1000 mr-0 ${sizeClasses[size]} ${bold ? 'font-bold' : ''}`}
+        className={`transition-all duration-800 mr-0 ${sizeClasses[size]} ${bold ? 'font-bold' : ''}`}
       >
         {label}
       </div>
       <div
-        className={`w-0.5 bg-black transition-all duration-1000 ${heightClasses[size]}`}
+        className={`w-0.5 bg-black transition-all duration-800 ${heightClasses[size]}`}
       ></div>
     </div>
   )
