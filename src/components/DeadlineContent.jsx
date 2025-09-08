@@ -34,12 +34,12 @@ const DeadlineContent = ({
       className='h-64 outline-none block flex-nowrap flex-row items-center justify-center relative group'
     >
       <button
-        className='absolute top-0 left-0 text-black text-lg z-10 leading-0 m-3 -translate-x-1/2 hidden group-hover:block'
+        className='absolute top-0 left-0 text-black text-lg z-10 leading-0 m-4 -translate-x-1/2 hidden group-hover:block'
         onClick={onDelete}
       >
         ×
       </button>
-      <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0 '>
+      <div className='flex w-full h-full absolute left-0 top-0 bottom-0 right-0 z-0 rounded-xl overflow-clip'>
         <div
           className={`self-stretch bg-${color}-lighter`}
           style={{ flex: `${100 - backgroundSplitPercentage}%` }}
