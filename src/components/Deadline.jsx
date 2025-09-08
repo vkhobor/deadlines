@@ -49,7 +49,7 @@ const Deadline = () => {
     window.history.replaceState(null, '', newUrl)
 
     window.parent.postMessage(
-      { type: 'url-change', url: window.Location.href },
+      { type: 'url-change', url: window.location.href },
       '*',
     )
   }, [deadlines])
