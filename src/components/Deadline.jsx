@@ -120,12 +120,12 @@ const Deadline = () => {
   return (
     <>
       <div
-        className='absolute left-0 top-0 bg-gray-200 w-16 h-16 flex items-center justify-center pl-0 ml-4 mt-4  cursor-pointer'
+        className={`absolute left-0 top-0 hover:border ${deadlines.length === 0 && 'border'} bg-transparent w-16 h-16 flex items-center justify-center pl-0 ml-4 mt-4  cursor-pointer`}
         onClick={() => setIsModalOpen(true)}
       >
         +
       </div>
-      <div className='absolute right-0 top-0 bg-gray-200 text-black p-2 m-4'>
+      <div className='absolute right-0 top-0  border text-black p-2 m-4'>
         {currentTime.toLocaleTimeString([], {
           hour: '2-digit',
           minute: '2-digit',
