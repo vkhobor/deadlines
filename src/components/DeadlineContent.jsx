@@ -27,7 +27,7 @@ const DeadlineContent = ({
     // Step 2: Trigger animation on mount
     const timeout = setTimeout(() => {
       setSplitPercentage(backgroundSplitPercentage)
-    }, 0) // Delay can be adjusted if needed
+    }, 50) // Delay can be adjusted if needed
     return () => clearTimeout(timeout) // Cleanup timeout
   }, [backgroundSplitPercentage])
 
@@ -35,7 +35,7 @@ const DeadlineContent = ({
     // Step 2: Trigger animation on mount
     const timeout = setTimeout(() => {
       setLines(linesConfig)
-    }, 0) // Delay can be adjusted if needed
+    }, 50) // Delay can be adjusted if needed
     return () => clearTimeout(timeout) // Cleanup timeout
   }, [linesConfig])
 
